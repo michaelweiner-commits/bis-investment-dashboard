@@ -399,7 +399,7 @@ function App(){
   return e(React.Fragment,null,
     e(Header,null),
     e("div",{className:"tabs"},
-      [["overview","1 · $4.53M initial investment"],["comps","2 · What others paid"],["burden","3 · The problem it solves"]].map(([id,l])=>
+      [["overview","1 · $4.53M initial investment"],["burden","2 · The problem it solves"],["comps","3 · What others paid"]].map(([id,l])=>
         e("button",{key:id,className:tab===id?"on":"",onClick:()=>setTab(id)},l))
     ),
     e("div",{className:"stage"},
