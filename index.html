@@ -156,7 +156,7 @@ tr.bisrow td{font-weight:800;color:var(--sf-navy);}
 .split2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
 /* ---- levers (what the investment attacks) ---- */
-.levers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
 .lever{background:#f6f9ff;border:1px solid var(--border);border-top:4px solid var(--sf-teal);border-radius:10px;padding:14px 16px;}
 .lever .lt{font-weight:800;color:var(--sf-navy);font-size:15px;margin-bottom:5px;}
 .lever .ld{font-size:13px;color:var(--text);font-weight:600;line-height:1.5;}
@@ -385,17 +385,20 @@ function Burden(){
       )
     ),
     e("div",{className:"leadline hero",style:{marginTop:"8px"}},
-      "A unified Salesforce + Palantir environment replaces the legacy SNAP-R path. Three ways that cuts into the burden above:"),
+      "A unified Salesforce + Palantir environment replaces the legacy SNAP-R path. Four ways that cuts into the burden above:"),
     e("div",{className:"levers",style:{marginTop:"10px"}},
       e("div",{className:"lever"},
-        e("div",{className:"lt"},"Digital self-service intake"),
-        e("div",{className:"ld"},"Exporters file and track online instead of manual back-and-forth, deflecting routine volume away from staff.")),
+        e("div",{className:"lt"},"Faster license adjudication"),
+        e("div",{className:"ld"},"Pre-filled, pre-classified applications shorten the time from submission to decision.")),
+      e("div",{className:"lever"},
+        e("div",{className:"lt"},"Agentic help on the site"),
+        e("div",{className:"ld"},"AI assists and deflects exporter questions at the point of filing, instead of staff answering by email.")),
+      e("div",{className:"lever"},
+        e("div",{className:"lt"},"Real-time observability"),
+        e("div",{className:"ld"},"Live view of license volume, stage, and status, rather than waiting on periodic reports.")),
       e("div",{className:"lever"},
         e("div",{className:"lt"},"One record, no re-keying"),
-        e("div",{className:"ld"},"Salesforce + Palantir replace the siloed Oracle systems, so data is entered once and shared, not re-typed across tools.")),
-      e("div",{className:"lever"},
-        e("div",{className:"lt"},"AI-assisted classification"),
-        e("div",{className:"ld"},"Applications are pre-sorted and pre-filled, so officers review and decide instead of sorting and keying."))
+        e("div",{className:"ld"},"Data is entered once and shared across divisions, not re-typed across siloed systems."))
     )
   );
 }
