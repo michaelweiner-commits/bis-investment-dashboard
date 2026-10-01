@@ -163,6 +163,22 @@ tr.bisrow td{font-weight:800;color:var(--sf-navy);}
 .leadline{font-size:15px;color:var(--sf-navy);font-weight:600;line-height:1.5;}
 .leadline.hero{font-size:18px;font-weight:800;}
 
+/* ---- mandate checklist ---- */
+.mandate{max-width:980px;margin:0 auto;}
+.mandate .banner{background:linear-gradient(100deg,var(--green),#2fa84a);color:#fff;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.mandate .banner .bt{font-size:17px;font-weight:800;}
+.mandate .banner .bs{font-size:12px;color:#e4f6e8;margin-top:2px;}
+.mandate .banner .big{margin-left:auto;text-align:right;}
+.mandate .banner .big .v{font-size:26px;font-weight:800;}
+.mandate .banner .big .k{font-size:11px;color:#e4f6e8;}
+.checks{display:flex;flex-direction:column;gap:10px;}
+.check{display:flex;align-items:flex-start;gap:14px;background:var(--card);border:1px solid var(--border);border-left:5px solid var(--green);border-radius:10px;padding:13px 16px;}
+.check .tick{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;margin-top:1px;}
+.check .req{font-weight:700;color:var(--sf-navy);font-size:14px;}
+.check .req .sec{color:var(--faint);font-weight:600;font-size:12px;margin-left:6px;}
+.check .deliver{font-size:13px;color:var(--text);font-weight:600;margin-top:3px;}
+.check .deliver b{color:var(--green);}
+
 .footer{flex-shrink:0;background:var(--sf-navy);color:#9fb6e0;font-size:11px;padding:7px 22px;display:flex;justify-content:space-between;gap:10px;}
 .footer b{color:#fff;}
 .src{font-size:11px;color:var(--faint);}
@@ -273,7 +289,41 @@ function Header(){
   );
 }
 
+/* ---- the mandate (H.R. 4920, BIS IT Modernization Act) ---- */
+const BILL_URL="https://www.congress.gov/bill/119th-congress/house-bill/4920/text";
+const MANDATE=[
+  {req:"Unified case + customer relationship management environment", sec:"Sec. 2(c)(1)", deliver:"Delivered as the Salesforce + Palantir platform."},
+  {req:"Streamline export-license adjudication with data fusion & analytics", sec:"Sec. 2(c)(2)", deliver:"Faster adjudication and AI-assisted classification."},
+  {req:"Reduce manual review and improve user experience", sec:"Sec. 2(d)", deliver:"Self-service intake and agentic help at the point of filing."},
+  {req:"Expand secure data sharing across agencies and partners", sec:"Sec. 2(c)(4)", deliver:"One shared record across BIS divisions, no re-keying."},
+  {req:"Incorporate AI, machine learning, and advanced tools", sec:"Sec. 2(a)", deliver:"Agentic assistance and automated classification built in."}
+];
+
 /* ---- views ---- */
+function Mandate(){
+  return e("div",{className:"mandate"},
+    e("div",{className:"banner"},
+      e("div",null,
+        e("div",{className:"bt"},"BIS IT Modernization Act (H.R. 4920)"),
+        e("div",{className:"bs"},"The investment delivers what the legislation calls for, point by point.")),
+      e("div",{className:"big"},
+        e("div",{className:"v"},"$25M / yr"),
+        e("div",{className:"k"},"authorized, FY2026-2029 · Sec. 2(f)"))
+    ),
+    e("div",{className:"checks"},
+      MANDATE.map((m,i)=>e("div",{className:"check",key:i},
+        e("div",{className:"tick"},"✓"),
+        e("div",null,
+          e("div",{className:"req"}, m.req, e("span",{className:"sec"},m.sec)),
+          e("div",{className:"deliver"}, e("b",null,"BIS: "), m.deliver))
+      ))
+    ),
+    e("div",{className:"src",style:{marginTop:"14px"}},
+      e("a",{href:BILL_URL,target:"_blank",rel:"noopener"},"H.R. 4920, 119th Congress ↗"),
+      " — Bureau of Industry and Security Information Technology Modernization Act.")
+  );
+}
+
 function Overview(){
   const total=COST.reduce((s,c)=>s+c.v,0);
   return e("div",{style:{height:"100%",display:"flex",alignItems:"flex-start",justifyContent:"center",paddingTop:"24px"}},
@@ -404,9 +454,10 @@ function Burden(){
 }
 
 function App(){
-  const [tab,setTab]=useState("overview");
-  const views={overview:Overview,comps:Comps,burden:Burden};
+  const [tab,setTab]=useState("mandate");
+  const views={mandate:Mandate,overview:Overview,comps:Comps,burden:Burden};
   const heads={
+    mandate:["The mandate","What Congress directed, and how this investment meets it."],
     overview:["$4.53M initial investment",""],
     comps:["",""],
     burden:["The problem it solves","The official paperwork burden today, and how the unified environment cuts into it."]
@@ -415,7 +466,7 @@ function App(){
   return e(React.Fragment,null,
     e(Header,null),
     e("div",{className:"tabs"},
-      [["overview","1 · $4.53M initial investment"],["burden","2 · The problem it solves"],["comps","3 · What others paid"]].map(([id,l])=>
+      [["mandate","1 · The mandate"],["overview","2 · $4.53M initial investment"],["burden","3 · The problem it solves"],["comps","4 · What others paid"]].map(([id,l])=>
         e("button",{key:id,className:tab===id?"on":"",onClick:()=>setTab(id)},l))
     ),
     e("div",{className:"stage"},
